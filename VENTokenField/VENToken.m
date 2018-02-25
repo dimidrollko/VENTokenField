@@ -51,8 +51,17 @@
 
 - (void)setTitleText:(NSString *)text
 {
-    self.titleLabel.text = text;
-    self.titleLabel.textColor = self.colorScheme;
+    NSMutableAttributedString *resString = [[NSMutableAttributedString alloc] initWithString:text
+                                                                                  attributes:@{NSForegroundColorAttributeName : [UIColor blackColor],
+                                                                                               NSFontAttributeName : [UIFont systemFontOfSize:18
+                                                                                                                                       weight:UIFontWeightSemibold]
+                                                                                               }];
+    [resString appendAttributedString:[[NSAttributedString alloc]initWithString:@"," attributes:@{NSForegroundColorAttributeName : [UIColor blackColor],
+                                                                                                  NSFontAttributeName : [UIFont systemFontOfSize:18
+                                                                                                                                          weight:UIFontWeightRegular]
+                                                                                                   }]];
+    self.titleLabel.attributedText = resString;
+//    self.titleLabel.textColor = self.colorScheme;
     [self.titleLabel sizeToFit];
     self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetMaxX(self.titleLabel.frame) + 3, CGRectGetHeight(self.frame));
     [self.titleLabel sizeToFit];
@@ -63,14 +72,13 @@
     _highlighted = highlighted;
     UIColor *textColor = highlighted ? [UIColor whiteColor] : self.colorScheme;
     UIColor *backgroundColor = highlighted ? self.colorScheme : [UIColor clearColor];
-    self.titleLabel.textColor = textColor;
     self.backgroundView.backgroundColor = backgroundColor;
 }
 
 - (void)setColorScheme:(UIColor *)colorScheme
 {
     _colorScheme = colorScheme;
-    self.titleLabel.textColor = self.colorScheme;
+//    self.titleLabel.textColor = self.colorScheme;
     [self setHighlighted:_highlighted];
 }
 

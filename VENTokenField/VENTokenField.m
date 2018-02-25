@@ -261,7 +261,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
     if (clearInput) {
         inputTextField.text = @"";
     }
-    inputTextField.frame = CGRectMake(*currentX, *currentY + 1, inputTextFieldWidth, [self heightForToken] - 1);
+    inputTextField.frame = CGRectMake(*currentX, *currentY + 10, inputTextFieldWidth, [self heightForToken] );
     inputTextField.tintColor = self.colorScheme;
     [self.scrollView addSubview:inputTextField];
 }
@@ -306,14 +306,14 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
         token.didTapTokenBlock = ^{
             [weakSelf didTapToken:weakToken];
         };
-
-        [token setTitleText:[NSString stringWithFormat:@"%@,", title]];
+        
+        [token setTitleText:[NSString stringWithFormat:@"%@", title]];
         token.colorScheme = [self colorSchemeForTokenAtIndex:i];
         
         [self.tokens addObject:token];
 
         if (*currentX + token.width <= self.scrollView.contentSize.width) { // token fits in current line
-            token.frame = CGRectMake(*currentX, *currentY, token.width, token.height);
+            token.frame = CGRectMake(*currentX, *currentY + 8 , token.width, token.height);
         } else {
             *currentY += token.height;
             *currentX = 0;
@@ -321,7 +321,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
             if (tokenWidth > self.scrollView.contentSize.width) { // token is wider than max width
                 tokenWidth = self.scrollView.contentSize.width;
             }
-            token.frame = CGRectMake(*currentX, *currentY, tokenWidth, token.height);
+            token.frame = CGRectMake(*currentX, *currentY + 8, tokenWidth, token.height);
         }
         *currentX += token.width + self.tokenPadding;
         [self.scrollView addSubview:token];
@@ -404,7 +404,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
         _inputTextField = [[VENBackspaceTextField alloc] init];
         [_inputTextField setKeyboardType:self.inputTextFieldKeyboardType];
         _inputTextField.textColor = self.inputTextFieldTextColor;
-        _inputTextField.font = [UIFont fontWithName:@"HelveticaNeue" size:15.5];
+        _inputTextField.font = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
         _inputTextField.autocorrectionType = self.autocorrectionType;
         _inputTextField.autocapitalizationType = self.autocapitalizationType;
         _inputTextField.tintColor = self.colorScheme;
