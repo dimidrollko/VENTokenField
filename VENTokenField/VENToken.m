@@ -42,7 +42,11 @@
 
 - (void)setUpInit
 {
-    self.backgroundView.layer.cornerRadius = 5;
+    self.backgroundView.layer.cornerRadius = 32;
+    self.backgroundView.layer.borderColor = [backgroundColor cgColor];
+    self.backgroundView.layer.borderWidth = 1;
+    
+    
     self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapToken:)];
     self.colorScheme = [UIColor blueColor];
     self.titleLabel.textColor = self.colorScheme;
