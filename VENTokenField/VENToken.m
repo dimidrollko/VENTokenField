@@ -42,8 +42,7 @@
 
 - (void)setUpInit
 {
-    self.backgroundView.layer.cornerRadius = 32;
-    self.backgroundView.layer.borderColor = [backgroundColor cgColor];
+    self.backgroundView.layer.cornerRadius = 15;
     self.backgroundView.layer.borderWidth = 1;
     
     
@@ -55,17 +54,8 @@
 
 - (void)setTitleText:(NSString *)text
 {
-    NSMutableAttributedString *resString = [[NSMutableAttributedString alloc] initWithString:text
-                                                                                  attributes:@{NSForegroundColorAttributeName : [UIColor blackColor],
-                                                                                               NSFontAttributeName : [UIFont systemFontOfSize:18
-                                                                                                                                       weight:UIFontWeightSemibold]
-                                                                                               }];
-    [resString appendAttributedString:[[NSAttributedString alloc]initWithString:@"," attributes:@{NSForegroundColorAttributeName : [UIColor blackColor],
-                                                                                                  NSFontAttributeName : [UIFont systemFontOfSize:18
-                                                                                                                                          weight:UIFontWeightRegular]
-                                                                                                   }]];
-    self.titleLabel.attributedText = resString;
-//    self.titleLabel.textColor = self.colorScheme;
+    self.titleLabel.text = text;
+    self.titleLabel.textColor = self.colorScheme;
     [self.titleLabel sizeToFit];
     self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetMaxX(self.titleLabel.frame) + 3, CGRectGetHeight(self.frame));
     [self.titleLabel sizeToFit];
@@ -82,7 +72,8 @@
 - (void)setColorScheme:(UIColor *)colorScheme
 {
     _colorScheme = colorScheme;
-//    self.titleLabel.textColor = self.colorScheme;
+    self.titleLabel.textColor = self.colorScheme;
+    self.backgroundView.layer.borderColor = [self.colorScheme CGColor];
     [self setHighlighted:_highlighted];
 }
 
