@@ -26,12 +26,12 @@
 #import "VENToken.h"
 #import "VENBackspaceTextField.h"
 
-static const CGFloat VENTokenFieldDefaultVerticalInset      = 7.0;
-static const CGFloat VENTokenFieldDefaultHorizontalInset    = 15.0;
-static const CGFloat VENTokenFieldDefaultToLabelPadding     = 5.0;
-static const CGFloat VENTokenFieldDefaultTokenPadding       = 2.0;
+static const CGFloat VENTokenFieldDefaultVerticalInset      = 0;
+static const CGFloat VENTokenFieldDefaultHorizontalInset    = 0;
+static const CGFloat VENTokenFieldDefaultToLabelPadding     = 0;
+static const CGFloat VENTokenFieldDefaultTokenPadding       = 8.0;
 static const CGFloat VENTokenFieldDefaultMinInputWidth      = 80.0;
-static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
+static const CGFloat VENTokenFieldDefaultMaxHeight          = 3000;
 
 
 @interface VENTokenField () <VENBackspaceTextFieldDelegate>
@@ -306,6 +306,7 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
         token.didTapTokenBlock = ^{
             [weakSelf didTapToken:weakToken];
         };
+        token.autoresizingMask = UIViewAutoresizingNone;
         
         [token setTitleText:[NSString stringWithFormat:@"%@", title]];
         token.colorScheme = [self colorSchemeForTokenAtIndex:i];
@@ -313,15 +314,15 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
         [self.tokens addObject:token];
 
         if (*currentX + token.width <= self.scrollView.contentSize.width) { // token fits in current line
-            token.frame = CGRectMake(*currentX, *currentY + 8 , token.width, token.height);
+            token.frame = CGRectMake(*currentX, *currentY + 8 , token.width, self.heightForToken);
         } else {
-            *currentY += token.height;
+            *currentY += self.heightForToken + 8;
             *currentX = 0;
             CGFloat tokenWidth = token.width;
             if (tokenWidth > self.scrollView.contentSize.width) { // token is wider than max width
                 tokenWidth = self.scrollView.contentSize.width;
             }
-            token.frame = CGRectMake(*currentX, *currentY + 8, tokenWidth, token.height);
+            token.frame = CGRectMake(*currentX, *currentY + 8, tokenWidth, self.heightForToken);
         }
         *currentX += token.width + self.tokenPadding;
         [self.scrollView addSubview:token];

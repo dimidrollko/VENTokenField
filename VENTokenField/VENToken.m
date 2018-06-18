@@ -57,7 +57,7 @@
     self.titleLabel.text = text;
     self.titleLabel.textColor = self.colorScheme;
     [self.titleLabel sizeToFit];
-    self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetMaxX(self.titleLabel.frame) + 3, CGRectGetHeight(self.frame));
+    self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetMaxX(self.titleLabel.frame) + 12, CGRectGetHeight(self.frame));
     [self.titleLabel sizeToFit];
 }
 
@@ -66,6 +66,7 @@
     _highlighted = highlighted;
     UIColor *textColor = highlighted ? [UIColor whiteColor] : self.colorScheme;
     UIColor *backgroundColor = highlighted ? self.colorScheme : [UIColor clearColor];
+    self.titleLabel.textColor = textColor;
     self.backgroundView.backgroundColor = backgroundColor;
 }
 
